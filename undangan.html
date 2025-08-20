@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Pernikahan - Sarah & Ahmad</title>
+    <title>Undangan Pernikahan - Wegy & Sarah</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&family=Playfair+Display:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -22,6 +22,125 @@
             line-height: 1.6;
         }
 
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Splash Screen */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8b7355 0%, #d4a574 50%, #f4c2c2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: all 1s ease;
+        }
+
+        .splash-content {
+            text-align: center;
+            color: white;
+            animation: splashFadeIn 2s ease;
+        }
+
+        .splash-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .splash-subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .splash-guest {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #fff3cd;
+            margin: 1.5rem 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .splash-date {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .open-invitation-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            animation: btnPulse 2s ease infinite;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .open-invitation-btn:hover {
+            background: white;
+            color: #8b7355;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes splashFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes btnPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+        }
+
+        /* Main Content - Hidden Initially */
+        .main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .main-content.show {
+            display: block;
+            opacity: 1;
+        }
+
         /* Loading Screen */
         .loading-screen {
             position: fixed;
@@ -33,7 +152,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10000;
+            z-index: 9999;
             transition: opacity 1s ease;
         }
 
@@ -44,26 +163,26 @@
 
         .loading-title {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
             color: #8b7355;
             margin-bottom: 1rem;
             animation: fadeInUp 2s ease;
         }
 
         .loading-text {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
             margin-bottom: 2rem;
             animation: fadeInUp 2s ease 0.5s both;
         }
 
         .loading-hearts {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             animation: pulse 2s ease infinite;
         }
 
         /* Hero Section */
         .hero-section {
-            height: 100vh;
+            min-height: 100vh;
             background: linear-gradient(rgba(139, 115, 85, 0.4), rgba(139, 115, 85, 0.2)),
                 url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
@@ -74,6 +193,7 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            padding: 2rem 0;
         }
 
         .floating-petals {
@@ -118,14 +238,15 @@
             text-align: center;
             z-index: 2;
             background: rgba(255, 255, 255, 0.95);
-            padding: 4rem 3rem;
+            padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             animation: heroContentFloat 6s ease-in-out infinite;
+            max-width: 90%;
+            width: 100%;
             max-width: 600px;
-            margin: 0 2rem;
         }
 
         @keyframes heroContentFloat {
@@ -142,7 +263,7 @@
 
         .hero-title {
             font-family: 'Great Vibes', cursive;
-            font-size: 4.5rem;
+            font-size: clamp(3rem, 8vw, 4.5rem);
             color: #8b7355;
             margin-bottom: 1rem;
             animation: titleGlow 3s ease infinite alternate;
@@ -160,7 +281,7 @@
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: #666;
             margin-bottom: 2rem;
             animation: fadeInUp 2s ease 1s both;
@@ -168,7 +289,7 @@
 
         .guest-name {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
             color: #d4a574;
             margin: 2rem 0;
             animation: guestNamePulse 4s ease infinite;
@@ -190,12 +311,13 @@
         .date-banner {
             background: #8b7355;
             color: white;
-            padding: 1rem 2rem;
+            padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
             border-radius: 50px;
             font-weight: 500;
             margin-top: 2rem;
             display: inline-block;
             animation: dateFloat 3s ease-in-out infinite;
+            font-size: clamp(0.9rem, 2.2vw, 1rem);
         }
 
         @keyframes dateFloat {
@@ -212,7 +334,7 @@
 
         /* Welcome Section with Parallax */
         .welcome-section {
-            padding: 150px 0;
+            padding: clamp(80px, 15vw, 150px) 0;
             background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(250, 248, 245, 0.95)),
                 url('https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
@@ -250,7 +372,7 @@
 
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
             text-align: center;
             color: #8b7355;
             margin-bottom: 3rem;
@@ -258,11 +380,12 @@
             font-weight: 600;
             text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
             background: rgba(255, 255, 255, 0.9);
-            padding: 1rem 2rem;
+            padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             display: inline-block;
+            max-width: 95%;
         }
 
         .section-title::after {
@@ -279,26 +402,25 @@
 
         .welcome-text {
             max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.1rem;
+            margin: 0 auto 3rem;
+            font-size: clamp(1rem, 2.2vw, 1.1rem);
             color: #333;
             line-height: 1.8;
             animation: fadeInUp 1s ease;
             background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
+            padding: clamp(1.5rem, 4vw, 2rem);
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
-            margin-bottom: 3rem;
         }
 
         .welcome-quote {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
             color: #8b7355;
             margin: 3rem auto;
-            padding: 2rem;
+            padding: clamp(1.5rem, 4vw, 2rem);
             border-left: 4px solid #d4a574;
             background: rgba(250, 248, 245, 0.95);
             border-radius: 0 15px 15px 0;
@@ -310,18 +432,17 @@
 
         /* Image Section */
         .image-section {
-            padding: 100px 0;
+            padding: clamp(60px, 12vw, 100px) 0;
             background: #fff;
             text-align: center;
         }
 
         .image-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
 
         .image-card {
@@ -353,11 +474,12 @@
             padding: 1.5rem;
             font-style: italic;
             color: #666;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         /* Couple Section */
         .couple-section {
-            padding: 100px 0;
+            padding: clamp(60px, 12vw, 100px) 0;
             background: linear-gradient(135deg, #faf8f5 0%, #f5f1eb 100%);
         }
 
@@ -367,19 +489,22 @@
             margin: 0 auto;
             gap: 4rem;
             align-items: center;
-            padding: 0 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .couple-card {
             background: white;
             border-radius: 25px;
-            padding: 3rem 2rem;
+            padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 3vw, 2rem);
             text-align: center;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
             flex: 1;
+            min-width: 280px;
+            max-width: 400px;
         }
 
         .couple-card::before {
@@ -409,8 +534,8 @@
         }
 
         .couple-img {
-            width: 200px;
-            height: 200px;
+            width: clamp(150px, 25vw, 200px);
+            height: clamp(150px, 25vw, 200px);
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid #f4c2c2;
@@ -438,14 +563,14 @@
 
         .couple-name {
             font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem;
+            font-size: clamp(2.2rem, 5vw, 2.8rem);
             color: #8b7355;
             margin-bottom: 1rem;
         }
 
         .couple-info {
             color: #666;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
             margin-bottom: 1.5rem;
         }
 
@@ -458,10 +583,11 @@
             flex: 0 0 auto;
             text-align: center;
             animation: heartBeat 2s ease infinite;
+            order: 1;
         }
 
         .heart-divider i {
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 5vw, 3rem);
             color: #f4c2c2;
             margin: 0 2rem;
         }
@@ -480,7 +606,7 @@
 
         /* Love Story Section */
         .story-section {
-            padding: 100px 0;
+            padding: clamp(60px, 12vw, 100px) 0;
             background: white;
         }
 
@@ -488,6 +614,7 @@
             max-width: 800px;
             margin: 0 auto;
             position: relative;
+            padding: 0 1rem;
         }
 
         .story-timeline::before {
@@ -519,7 +646,7 @@
 
         .story-content {
             background: #faf8f5;
-            padding: 2rem;
+            padding: clamp(1.5rem, 3vw, 2rem);
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
@@ -532,7 +659,7 @@
 
         .story-date {
             font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
+            font-size: clamp(1.3rem, 3vw, 1.5rem);
             color: #d4a574;
             margin-bottom: 0.5rem;
         }
@@ -541,11 +668,12 @@
             font-weight: 600;
             color: #333;
             margin-bottom: 1rem;
+            font-size: clamp(1rem, 2.2vw, 1.1rem);
         }
 
         .story-desc {
             color: #666;
-            font-size: 0.95rem;
+            font-size: clamp(0.9rem, 2vw, 0.95rem);
         }
 
         .story-icon {
@@ -553,15 +681,15 @@
             left: 50%;
             top: 20px;
             transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
+            width: clamp(35px, 8vw, 40px);
+            height: clamp(35px, 8vw, 40px);
             background: #d4a574;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             z-index: 2;
             animation: iconPulse 3s ease infinite;
         }
@@ -580,7 +708,7 @@
 
         /* Gallery Section */
         .gallery-section {
-            padding: 100px 0;
+            padding: clamp(60px, 12vw, 100px) 0;
             background: linear-gradient(135deg, #faf8f5 0%, #f5f1eb 100%);
         }
 
@@ -589,10 +717,11 @@
             justify-content: center;
             margin-bottom: 3rem;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .gallery-tab {
-            padding: 0.8rem 2rem;
+            padding: clamp(0.6rem, 1.5vw, 0.8rem) clamp(1.5rem, 3vw, 2rem);
             background: white;
             border: 2px solid #d4a574;
             border-radius: 25px;
@@ -600,6 +729,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .gallery-tab.active,
@@ -611,11 +741,10 @@
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
 
         .gallery-item {
@@ -635,7 +764,7 @@
 
         .gallery-img {
             width: 100%;
-            height: 300px;
+            height: clamp(250px, 30vw, 300px);
             object-fit: cover;
             transition: all 0.4s ease;
         }
@@ -651,7 +780,7 @@
             right: 0;
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
             color: white;
-            padding: 2rem 1.5rem 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2rem) clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem);
             transform: translateY(100%);
             transition: all 0.4s ease;
         }
@@ -663,32 +792,32 @@
         .gallery-title {
             font-weight: 600;
             margin-bottom: 0.5rem;
+            font-size: clamp(1rem, 2.2vw, 1.1rem);
         }
 
         .gallery-desc {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
             opacity: 0.9;
         }
 
         /* Details Section */
         .details-section {
-            padding: 100px 0;
+            padding: clamp(60px, 12vw, 100px) 0;
             background: white;
         }
 
         .details-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 3rem;
             max-width: 1000px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
 
         .detail-card {
             background: linear-gradient(135deg, #faf8f5 0%, #f5f1eb 100%);
             border-radius: 20px;
-            padding: 3rem 2rem;
+            padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 3vw, 2rem);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -728,7 +857,7 @@
         }
 
         .detail-icon {
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 6vw, 3rem);
             color: #d4a574;
             margin-bottom: 1.5rem;
             animation: iconBounce 2s ease infinite;
@@ -748,7 +877,7 @@
 
         .detail-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
             color: #333;
             margin-bottom: 1.5rem;
             font-weight: 600;
@@ -761,29 +890,31 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            flex-wrap: wrap;
         }
 
         .detail-info i {
             color: #d4a574;
             width: 20px;
+            flex-shrink: 0;
         }
 
         /* Gift Section */
         .gift-section {
-            padding: 100px 0;
+            padding: clamp(60px, 12vw, 100px) 0;
             background: linear-gradient(135deg, #f5f1eb 0%, #e8ddd4 100%);
         }
 
         .gift-content {
             max-width: 800px;
             margin: 0 auto;
-            padding: 0 2rem;
             text-align: center;
         }
 
         .gift-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
@@ -791,7 +922,7 @@
         .gift-card {
             background: white;
             border-radius: 20px;
-            padding: 2.5rem 2rem;
+            padding: clamp(2rem, 4vw, 2.5rem) clamp(1.5rem, 3vw, 2rem);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
             text-align: left;
@@ -804,7 +935,7 @@
 
         .gift-card h4 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.3rem, 3vw, 1.5rem);
             color: #8b7355;
             margin-bottom: 1rem;
             text-align: center;
@@ -822,19 +953,21 @@
             font-weight: 600;
             color: #333;
             margin-bottom: 0.5rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .account-number {
             font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.2vw, 1.1rem);
             color: #8b7355;
             font-weight: 600;
             margin-bottom: 0.5rem;
+            word-break: break-all;
         }
 
         .account-name {
             color: #666;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.8vw, 0.9rem);
         }
 
         .copy-btn {
@@ -843,10 +976,13 @@
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.8vw, 0.9rem);
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
         .copy-btn:hover {
@@ -856,7 +992,7 @@
 
         /* Countdown Section */
         .countdown-section {
-            padding: 100px 0;
+            padding: clamp(60px, 12vw, 100px) 0;
             background: linear-gradient(135deg, #8b7355 0%, #d4a574 100%);
             color: white;
             text-align: center;
@@ -864,7 +1000,7 @@
 
         .countdown-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
             margin-bottom: 3rem;
             color: white;
         }
@@ -872,28 +1008,32 @@
         .countdown-container {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: clamp(1rem, 3vw, 2rem);
             flex-wrap: wrap;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .countdown-item {
             background: rgba(255, 255, 255, 0.1);
-            padding: 2rem 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2rem) clamp(1rem, 2.5vw, 1.5rem);
             border-radius: 15px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            min-width: 120px;
+            min-width: clamp(90px, 20vw, 120px);
+            flex: 1;
+            max-width: 140px;
         }
 
         .countdown-number {
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 700;
             display: block;
             color: white;
         }
 
         .countdown-label {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.8vw, 0.9rem);
             opacity: 0.9;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -901,7 +1041,7 @@
 
         /* RSVP Section */
         .rsvp-section {
-            padding: 100px 0;
+            padding: clamp(60px, 12vw, 100px) 0;
             background: white;
             text-align: center;
         }
@@ -909,11 +1049,10 @@
         .rsvp-content {
             max-width: 600px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
 
         .rsvp-text {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
             color: #666;
             margin-bottom: 3rem;
             line-height: 1.8;
@@ -929,10 +1068,10 @@
         .rsvp-btn {
             background: #8b7355;
             color: white;
-            padding: 1rem 2.5rem;
+            padding: clamp(0.8rem, 2vw, 1rem) clamp(2rem, 4vw, 2.5rem);
             border: none;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.2vw, 1.1rem);
             font-weight: 500;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -940,6 +1079,7 @@
             align-items: center;
             gap: 0.5rem;
             animation: btnFloat 4s ease-in-out infinite;
+            white-space: nowrap;
         }
 
         @keyframes btnFloat {
@@ -970,8 +1110,8 @@
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            width: 60px;
-            height: 60px;
+            width: clamp(50px, 12vw, 60px);
+            height: clamp(50px, 12vw, 60px);
             background: #8b7355;
             border-radius: 50%;
             display: flex;
@@ -1004,7 +1144,7 @@
 
         .music-icon {
             color: white;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             transition: all 0.3s ease;
         }
 
@@ -1031,8 +1171,9 @@
         }
 
         .footer-text {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.8vw, 0.9rem);
             opacity: 0.8;
+            line-height: 1.6;
         }
 
         /* Animations */
@@ -1072,33 +1213,120 @@
             }
         }
 
-        /* Responsive */
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Mobile Responsive Adjustments */
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-
-            .guest-name {
-                font-size: 2.5rem;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
             .couple-container {
                 flex-direction: column;
                 gap: 2rem;
             }
 
             .heart-divider {
-                order: -1;
+                order: 2;
+            }
+
+            .couple-card:first-child {
+                order: 1;
+            }
+
+            .couple-card:last-child {
+                order: 3;
             }
 
             .story-item:nth-child(odd) .story-content,
             .story-item:nth-child(even) .story-content {
                 margin: 0;
                 text-align: center;
+            }
+
+            .story-timeline::before {
+                left: 30px;
+            }
+
+            .story-icon {
+                left: 30px;
+            }
+
+            .gallery-tabs {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .rsvp-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .rsvp-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .details-container {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown-container {
+                gap: 0.5rem;
+            }
+
+            .gift-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-section {
+                background-attachment: scroll;
+            }
+
+            .welcome-section {
+                background-attachment: scroll;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .splash-content {
+                padding: 0 1rem;
+            }
+
+            .open-invitation-btn {
+                padding: 1rem 2rem;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .hero-content {
+                margin: 1rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .music-player {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .section-title {
+                margin-bottom: 2rem;
+                padding: 1rem;
+            }
+
+            .welcome-text,
+            .welcome-quote {
+                padding: 1.5rem;
+            }
+
+            .story-timeline {
+                padding: 0 0.5rem;
             }
 
             .story-timeline::before {
@@ -1109,536 +1337,598 @@
                 left: 20px;
             }
 
-            .gallery-tabs {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .rsvp-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .details-container {
+            .gallery-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .countdown-container {
-                gap: 1rem;
+                gap: 1.5rem;
             }
 
             .countdown-item {
-                min-width: 100px;
-                padding: 1.5rem 1rem;
-            }
-
-            .countdown-number {
-                font-size: 2rem;
+                min-width: 80px;
             }
         }
 
-        .fade-out {
-            opacity: 0;
-            pointer-events: none;
+        /* Additional utility classes */
+        .slideInRight {
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
     </style>
+</head>
 
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <h1 class="loading-title">Wegy & Sarah</h1>
-            <p class="loading-text">Menyiapkan undangan untuk Anda...</p>
-            <div class="loading-hearts">🌸 💕 🌸</div>
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <h1 class="splash-title">Wegy & Sarah</h1>
+            <p class="splash-subtitle">Undangan Pernikahan</p>
+            <p class="splash-subtitle">Kepada Yang Terhormat</p>
+            <h2 class="splash-guest" id="splashNamaTamu">Tamu Istimewa</h2>
+            <p class="splash-date">Sabtu, 15 Juni 2024</p>
+            <button class="open-invitation-btn" onclick="openInvitation()">
+                <i class="fas fa-envelope-open"></i>
+                Buka Undangan
+            </button>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="floating-petals" id="petalsContainer"></div>
-
-        <div class="hero-content">
-            <h1 class="hero-title">Wegy & Sarah</h1>
-            <p class="hero-subtitle">Mengundang Anda dalam Acara Bahagia Kami</p>
-            <p class="hero-subtitle">Kepada Yang Terhormat</p>
-            <h2 class="guest-name" id="namaTamu">Tamu Istimewa</h2>
-            <div class="date-banner">Sabtu, 15 Juni 2024</div>
-        </div>
-    </section>
-
-    <!-- Welcome Section with Parallax -->
-    <section class="welcome-section">
-        <div class="welcome-overlay"></div>
-        <div class="container welcome-content">
-            <h2 class="section-title">Assalamu'alaikum Warahmatullahi Wabarakatuh</h2>
-
-            <div class="welcome-text">
-                <p>Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk
-                    menghadiri acara pernikahan kami yang InsyaAllah akan diselenggarakan pada:</p>
-            </div>
-
-            <div class="welcome-quote">
-                "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu
-                sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih
-                dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang
-                berfikir."
-                <br><br>
-                <strong>- QS. Ar-Rum: 21 -</strong>
-            </div>
-
-            <div class="welcome-text">
-                <p>Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir memberikan doa restu
-                    kepada kedua mempelai. Atas kehadiran dan doa restunya, kami ucapkan terima kasih.</p>
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Loading Screen -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="loading-content">
+                <h1 class="loading-title">Wegy & Sarah</h1>
+                <p class="loading-text">Menyiapkan undangan untuk Anda...</p>
+                <div class="loading-hearts">🌸 💕 🌸</div>
             </div>
         </div>
-    </section>
 
-    <!-- Image Section -->
-    <section class="image-section">
-        <div class="container">
-            <h2 class="section-title">Momen Bahagia Kami</h2>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="floating-petals" id="petalsContainer"></div>
 
-            <div class="image-gallery">
-                <div class="image-card">
-                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Foto Bersama">
-                    <div class="image-caption">"Cinta sejati adalah ketika dua jiwa menjadi satu"</div>
+            <div class="hero-content">
+                <h1 class="hero-title">Wegy & Sarah</h1>
+                <p class="hero-subtitle">Mengundang Anda dalam Acara Bahagia Kami</p>
+                <p class="hero-subtitle">Kepada Yang Terhormat</p>
+                <h2 class="guest-name" id="namaTamu">Tamu Istimewa</h2>
+                <div class="date-banner">Sabtu, 15 Juni 2024</div>
+            </div>
+        </section>
+
+        <!-- Welcome Section with Parallax -->
+        <section class="welcome-section">
+            <div class="welcome-overlay"></div>
+            <div class="container welcome-content">
+                <h2 class="section-title">Assalamu'alaikum Warahmatullahi Wabarakatuh</h2>
+
+                <div class="welcome-text">
+                    <p>Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk
+                        menghadiri acara pernikahan kami yang InsyaAllah akan diselenggarakan pada:</p>
                 </div>
 
-                <div class="image-card">
-                    <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Romantic Moment">
-                    <div class="image-caption">"Setiap matahari terbenam bersamamu adalah berkah"</div>
+                <div class="welcome-quote">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu
+                    sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa
+                    kasih
+                    dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang
+                    berfikir."
+                    <br><br>
+                    <strong>- QS. Ar-Rum: 21 -</strong>
                 </div>
 
-                <div class="image-card">
-                    <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Happy Together">
-                    <div class="image-caption">"Tawa bersama adalah musik terindah"</div>
+                <div class="welcome-text">
+                    <p>Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir memberikan doa
+                        restu
+                        kepada kedua mempelai. Atas kehadiran dan doa restunya, kami ucapkan terima kasih.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Couple Section -->
-    <section class="couple-section">
-        <div class="container">
-            <h2 class="section-title">Kedua Mempelai</h2>
+        <!-- Image Section -->
+        <section class="image-section">
+            <div class="container">
+                <h2 class="section-title">Momen Bahagia Kami</h2>
 
-            <div class="couple-container">
-                <div class="couple-card">
-                    <img src="img/sarah.avif" alt="Sarah Amelia" class="couple-img">
-                    <h3 class="couple-name">Sarah Amelia</h3>
-                    <div class="couple-info">
-                        <p>Putri dari</p>
-                        <p class="couple-parents">Bapak Rahmat Hidayat & Ibu Siti Nurhaliza</p>
+                <div class="image-gallery">
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Foto Bersama">
+                        <div class="image-caption">"Cinta sejati adalah ketika dua jiwa menjadi satu"</div>
                     </div>
-                </div>
 
-                <div class="heart-divider">
-                    <i class="fas fa-heart"></i>
-                </div>
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Romantic Moment">
+                        <div class="image-caption">"Setiap matahari terbenam bersamamu adalah berkah"</div>
+                    </div>
 
-                <div class="couple-card">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80"
-                        alt="Ahmad Fauzi" class="couple-img">
-                    <h3 class="couple-name">Ahmad Fauzi</h3>
-                    <div class="couple-info">
-                        <p>Putra dari</p>
-                        <p class="couple-parents">Bapak Agus Santoso & Ibu Rina Sari</p>
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Happy Together">
+                        <div class="image-caption">"Tawa bersama adalah musik terindah"</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Love Story Section -->
-    <section class="story-section">
-        <div class="container">
-            <h2 class="section-title">Kisah Cinta Kami</h2>
+        <!-- Couple Section -->
+        <section class="couple-section">
+            <div class="container">
+                <h2 class="section-title">Kedua Mempelai</h2>
 
-            <div class="story-timeline">
-                <div class="story-item">
-                    <div class="story-icon">
+                <div class="couple-container">
+                    <div class="couple-card">
+                        <img src="img/sarah.avif" alt="Sarah Amelia" class="couple-img">
+                        <h3 class="couple-name">Sarah Amelia</h3>
+                        <div class="couple-info">
+                            <p>Putri dari</p>
+                            <p class="couple-parents">Bapak Rahmat Hidayat & Ibu Siti Nurhaliza</p>
+                        </div>
+                    </div>
+
+                    <div class="heart-divider">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <div class="story-content">
-                        <div class="story-date">Januari 2020</div>
-                        <h4 class="story-title">Pertemuan Pertama</h4>
-                        <p class="story-desc">Kami pertama kali bertemu di sebuah acara gathering kampus. Perkenalan
-                            sederhana yang ternyata menjadi awal dari segalanya.</p>
-                    </div>
-                </div>
 
-                <div class="story-item">
-                    <div class="story-icon">
-                        <i class="fas fa-coffee"></i>
-                    </div>
-                    <div class="story-content">
-                        <div class="story-date">Maret 2020</div>
-                        <h4 class="story-title">Teman Dekat</h4>
-                        <p class="story-desc">Mulai sering ngobrol dan jalan bareng. Dari coffee date sampai nonton
-                            film, kami makin mengenal satu sama lain.</p>
-                    </div>
-                </div>
-
-                <div class="story-item">
-                    <div class="story-icon">
-                        <i class="fas fa-ring"></i>
-                    </div>
-                    <div class="story-content">
-                        <div class="story-date">Desember 2022</div>
-                        <h4 class="story-title">Lamaran</h4>
-                        <p class="story-desc">Setelah 2 tahun menjalin hubungan, Ahmad akhirnya melamar Sarah di tempat
-                            pertama kali mereka bertemu. Moment yang tak terlupakan!</p>
-                    </div>
-                </div>
-
-                <div class="story-item">
-                    <div class="story-icon">
-                        <i class="fas fa-calendar-heart"></i>
-                    </div>
-                    <div class="story-content">
-                        <div class="story-date">Juni 2024</div>
-                        <h4 class="story-title">Pernikahan</h4>
-                        <p class="story-desc">Dan hari ini, kami akan mengucapkan janji suci di hadapan Allah SWT untuk
-                            menjalani hidup bersama selamanya.</p>
+                    <div class="couple-card">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80"
+                            alt="Ahmad Fauzi" class="couple-img">
+                        <h3 class="couple-name">Ahmad Fauzi</h3>
+                        <div class="couple-info">
+                            <p>Putra dari</p>
+                            <p class="couple-parents">Bapak Agus Santoso & Ibu Rina Sari</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Gallery Section -->
-    <section class="gallery-section">
-        <div class="container">
-            <h2 class="section-title">Gallery Momen Bahagia</h2>
+        <!-- Love Story Section -->
+        <section class="story-section">
+            <div class="container">
+                <h2 class="section-title">Kisah Cinta Kami</h2>
 
-            <div class="gallery-tabs">
-                <div class="gallery-tab active" onclick="showGallery('prewedding')">Pre-Wedding</div>
-                <div class="gallery-tab" onclick="showGallery('engagement')">Engagement</div>
-                <div class="gallery-tab" onclick="showGallery('moments')">Sweet Moments</div>
-            </div>
-
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- Pre-wedding Photos -->
-                <div class="gallery-item" data-category="prewedding">
-                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Pre-wedding 1" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Outdoor Session</div>
-                        <div class="gallery-desc">Sesi foto di taman yang indah</div>
+                <div class="story-timeline">
+                    <div class="story-item">
+                        <div class="story-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-date">Januari 2020</div>
+                            <h4 class="story-title">Pertemuan Pertama</h4>
+                            <p class="story-desc">Kami pertama kali bertemu di sebuah acara gathering kampus. Perkenalan
+                                sederhana yang ternyata menjadi awal dari segalanya.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="gallery-item" data-category="prewedding">
-                    <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Pre-wedding 2" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Sunset Moment</div>
-                        <div class="gallery-desc">Romantis saat matahari terbenam</div>
+                    <div class="story-item">
+                        <div class="story-icon">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-date">Maret 2020</div>
+                            <h4 class="story-title">Teman Dekat</h4>
+                            <p class="story-desc">Mulai sering ngobrol dan jalan bareng. Dari coffee date sampai nonton
+                                film, kami makin mengenal satu sama lain.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="gallery-item" data-category="prewedding">
-                    <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Pre-wedding 3" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Casual Style</div>
-                        <div class="gallery-desc">Outfit kasual yang tetap elegan</div>
+                    <div class="story-item">
+                        <div class="story-icon">
+                            <i class="fas fa-ring"></i>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-date">Desember 2022</div>
+                            <h4 class="story-title">Lamaran</h4>
+                            <p class="story-desc">Setelah 2 tahun menjalin hubungan, Ahmad akhirnya melamar Sarah di
+                                tempat
+                                pertama kali mereka bertemu. Moment yang tak terlupakan!</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="gallery-item" data-category="prewedding">
-                    <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Pre-wedding 4" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Traditional Look</div>
-                        <div class="gallery-desc">Busana tradisional yang memesona</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="prewedding">
-                    <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Pre-wedding 5" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Garden Party</div>
-                        <div class="gallery-desc">Suasana garden yang mempesona</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="prewedding">
-                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Pre-wedding 6" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Happy Together</div>
-                        <div class="gallery-desc">Senyuman bahagia bersama</div>
-                    </div>
-                </div>
-
-                <!-- Engagement Photos (Hidden by default) -->
-                <div class="gallery-item" data-category="engagement" style="display: none;">
-                    <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Engagement 1" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">The Proposal</div>
-                        <div class="gallery-desc">Moment lamaran yang bersejarah</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="engagement" style="display: none;">
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Engagement 2" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Family Blessing</div>
-                        <div class="gallery-desc">Restu dari kedua keluarga</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="engagement" style="display: none;">
-                    <img src="https://images.unsplash.com/photo-1594736797933-d0301ba694fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Engagement 3" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Ring Exchange</div>
-                        <div class="gallery-desc">Tukar cincin sebagai tanda ikatan</div>
-                    </div>
-                </div>
-
-                <!-- Sweet Moments Photos (Hidden by default) -->
-                <div class="gallery-item" data-category="moments" style="display: none;">
-                    <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Moment 1" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">First Date</div>
-                        <div class="gallery-desc">Kencan pertama di cafe favorit</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="moments" style="display: none;">
-                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Moment 2" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Anniversary</div>
-                        <div class="gallery-desc">Perayaan anniversary yang romantic</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="moments" style="display: none;">
-                    <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                        alt="Moment 3" class="gallery-img">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Vacation Together</div>
-                        <div class="gallery-desc">Liburan bersama yang menyenangkan</div>
+                    <div class="story-item">
+                        <div class="story-icon">
+                            <i class="fas fa-calendar-heart"></i>
+                        </div>
+                        <div class="story-content">
+                            <div class="story-date">Juni 2024</div>
+                            <h4 class="story-title">Pernikahan</h4>
+                            <p class="story-desc">Dan hari ini, kami akan mengucapkan janji suci di hadapan Allah SWT
+                                untuk
+                                menjalani hidup bersama selamanya.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Countdown Section -->
-    <section class="countdown-section">
-        <div class="container">
-            <h2 class="countdown-title">Menuju Hari Bahagia</h2>
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <div class="container">
+                <h2 class="section-title">Gallery Momen Bahagia</h2>
 
-            <div class="countdown-container" id="countdown">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">00</span>
-                    <span class="countdown-label">Hari</span>
+                <div class="gallery-tabs">
+                    <div class="gallery-tab active" onclick="showGallery('prewedding')">Pre-Wedding</div>
+                    <div class="gallery-tab" onclick="showGallery('engagement')">Engagement</div>
+                    <div class="gallery-tab" onclick="showGallery('moments')">Sweet Moments</div>
                 </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">00</span>
-                    <span class="countdown-label">Jam</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">00</span>
-                    <span class="countdown-label">Menit</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="seconds">00</span>
-                    <span class="countdown-label">Detik</span>
+
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Pre-wedding Photos -->
+                    <div class="gallery-item" data-category="prewedding">
+                        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Pre-wedding 1" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Outdoor Session</div>
+                            <div class="gallery-desc">Sesi foto di taman yang indah</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="prewedding">
+                        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Pre-wedding 2" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Sunset Moment</div>
+                            <div class="gallery-desc">Romantis saat matahari terbenam</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="prewedding">
+                        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Pre-wedding 3" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Casual Style</div>
+                            <div class="gallery-desc">Outfit kasual yang tetap elegan</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="prewedding">
+                        <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Pre-wedding 4" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Traditional Look</div>
+                            <div class="gallery-desc">Busana tradisional yang memesona</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="prewedding">
+                        <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Pre-wedding 5" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Garden Party</div>
+                            <div class="gallery-desc">Suasana garden yang mempesona</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="prewedding">
+                        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Pre-wedding 6" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Happy Together</div>
+                            <div class="gallery-desc">Senyuman bahagia bersama</div>
+                        </div>
+                    </div>
+
+                    <!-- Engagement Photos (Hidden by default) -->
+                    <div class="gallery-item" data-category="engagement" style="display: none;">
+                        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Engagement 1" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">The Proposal</div>
+                            <div class="gallery-desc">Moment lamaran yang bersejarah</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="engagement" style="display: none;">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Engagement 2" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Family Blessing</div>
+                            <div class="gallery-desc">Restu dari kedua keluarga</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="engagement" style="display: none;">
+                        <img src="https://images.unsplash.com/photo-1594736797933-d0301ba694fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Engagement 3" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Ring Exchange</div>
+                            <div class="gallery-desc">Tukar cincin sebagai tanda ikatan</div>
+                        </div>
+                    </div>
+
+                    <!-- Sweet Moments Photos (Hidden by default) -->
+                    <div class="gallery-item" data-category="moments" style="display: none;">
+                        <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Moment 1" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">First Date</div>
+                            <div class="gallery-desc">Kencan pertama di cafe favorit</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="moments" style="display: none;">
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Moment 2" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Anniversary</div>
+                            <div class="gallery-desc">Perayaan anniversary yang romantic</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="moments" style="display: none;">
+                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Moment 3" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-title">Vacation Together</div>
+                            <div class="gallery-desc">Liburan bersama yang menyenangkan</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Details Section -->
-    <section class="details-section">
-        <div class="container">
-            <h2 class="section-title">Detail Acara</h2>
+        <!-- Countdown Section -->
+        <section class="countdown-section">
+            <div class="container">
+                <h2 class="countdown-title">Menuju Hari Bahagia</h2>
 
-            <div class="details-container">
-                <div class="detail-card">
-                    <div class="detail-icon">
-                        <i class="fas fa-ring"></i>
+                <div class="countdown-container" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Hari</span>
                     </div>
-                    <h3 class="detail-title">Akad Nikah</h3>
-                    <div class="detail-info">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>Sabtu, 15 Juni 2024</span>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Jam</span>
                     </div>
-                    <div class="detail-info">
-                        <i class="fas fa-clock"></i>
-                        <span>08:00 - 10:00 WIB</span>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Menit</span>
                     </div>
-                    <div class="detail-info">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Masjid Al-Ikhlas</span>
-                    </div>
-                    <div class="detail-info">
-                        <i class="fas fa-location-dot"></i>
-                        <span>Jl. Sudirman No. 123, Jakarta Pusat</span>
-                    </div>
-                </div>
-
-                <div class="detail-card">
-                    <div class="detail-icon">
-                        <i class="fas fa-glass-cheers"></i>
-                    </div>
-                    <h3 class="detail-title">Resepsi Pernikahan</h3>
-                    <div class="detail-info">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>Sabtu, 15 Juni 2024</span>
-                    </div>
-                    <div class="detail-info">
-                        <i class="fas fa-clock"></i>
-                        <span>11:00 - 15:00 WIB</span>
-                    </div>
-                    <div class="detail-info">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Hotel Grand Ballroom</span>
-                    </div>
-                    <div class="detail-info">
-                        <i class="fas fa-location-dot"></i>
-                        <span>Jl. Thamrin No. 45, Jakarta Pusat</span>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">Detik</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Gift Section -->
-    <section class="gift-section">
-        <div class="container">
-            <h2 class="section-title">Kirim Hadiah</h2>
+        <!-- Details Section -->
+        <section class="details-section">
+            <div class="container">
+                <h2 class="section-title">Detail Acara</h2>
 
-            <div class="gift-content">
-                <p class="rsvp-text">
-                    Doa restu Anda adalah hadiah yang sangat berharga bagi kami. Namun jika ingin memberikan hadiah,
-                    Anda dapat mengirimkannya melalui:
+                <div class="details-container">
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-ring"></i>
+                        </div>
+                        <h3 class="detail-title">Akad Nikah</h3>
+                        <div class="detail-info">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Sabtu, 15 Juni 2024</span>
+                        </div>
+                        <div class="detail-info">
+                            <i class="fas fa-clock"></i>
+                            <span>08:00 - 10:00 WIB</span>
+                        </div>
+                        <div class="detail-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Masjid Al-Ikhlas</span>
+                        </div>
+                        <div class="detail-info">
+                            <i class="fas fa-location-dot"></i>
+                            <span>Jl. Sudirman No. 123, Jakarta Pusat</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-glass-cheers"></i>
+                        </div>
+                        <h3 class="detail-title">Resepsi Pernikahan</h3>
+                        <div class="detail-info">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Sabtu, 15 Juni 2024</span>
+                        </div>
+                        <div class="detail-info">
+                            <i class="fas fa-clock"></i>
+                            <span>11:00 - 15:00 WIB</span>
+                        </div>
+                        <div class="detail-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Hotel Grand Ballroom</span>
+                        </div>
+                        <div class="detail-info">
+                            <i class="fas fa-location-dot"></i>
+                            <span>Jl. Thamrin No. 45, Jakarta Pusat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gift Section -->
+        <section class="gift-section">
+            <div class="container">
+                <h2 class="section-title">Kirim Hadiah</h2>
+
+                <div class="gift-content">
+                    <p class="rsvp-text">
+                        Doa restu Anda adalah hadiah yang sangat berharga bagi kami. Namun jika ingin memberikan hadiah,
+                        Anda dapat mengirimkannya melalui:
+                    </p>
+
+                    <div class="gift-cards">
+                        <div class="gift-card">
+                            <h4><i class="fas fa-university"></i> Transfer Bank</h4>
+                            <div class="bank-info">
+                                <div class="bank-name">Bank BCA</div>
+                                <div class="account-number">1234567890</div>
+                                <div class="account-name">a.n. Sarah Amelia</div>
+                                <button class="copy-btn" onclick="copyToClipboard('1234567890')">
+                                    <i class="fas fa-copy"></i> Salin No. Rekening
+                                </button>
+                            </div>
+
+                            <div class="bank-info">
+                                <div class="bank-name">Bank Mandiri</div>
+                                <div class="account-number">0987654321</div>
+                                <div class="account-name">a.n. Ahmad Fauzi</div>
+                                <button class="copy-btn" onclick="copyToClipboard('0987654321')">
+                                    <i class="fas fa-copy"></i> Salin No. Rekening
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="gift-card">
+                            <h4><i class="fas fa-mobile-alt"></i> E-Wallet</h4>
+                            <div class="bank-info">
+                                <div class="bank-name">DANA</div>
+                                <div class="account-number">081234567890</div>
+                                <div class="account-name">a.n. Sarah Amelia</div>
+                                <button class="copy-btn" onclick="copyToClipboard('081234567890')">
+                                    <i class="fas fa-copy"></i> Salin Nomor
+                                </button>
+                            </div>
+
+                            <div class="bank-info">
+                                <div class="bank-name">GoPay</div>
+                                <div class="account-number">080987654321</div>
+                                <div class="account-name">a.n. Ahmad Fauzi</div>
+                                <button class="copy-btn" onclick="copyToClipboard('080987654321')">
+                                    <i class="fas fa-copy"></i> Salin Nomor
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="rsvp-section">
+            <div class="container">
+                <h2 class="section-title">Konfirmasi Kehadiran</h2>
+
+                <div class="rsvp-content">
+                    <p class="rsvp-text">
+                        Kehadiran dan doa restu dari Bapak/Ibu/Saudara/i merupakan kebahagiaan tersendiri bagi kami.
+                        Mohon konfirmasi kehadiran Anda melalui tombol di bawah ini.
+                    </p>
+
+                    <div class="rsvp-buttons">
+                        <a href="https://wa.me/628123456789?text=Assalamu'alaikum,%20saya%20akan%20hadir%20di%20acara%20pernikahan%20Sarah%20dan%20Ahmad"
+                            class="rsvp-btn">
+                            <i class="fab fa-whatsapp"></i>
+                            Konfirmasi Hadir
+                        </a>
+                        <a href="https://goo.gl/maps/example" class="rsvp-btn">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Lihat Lokasi
+                        </a>
+                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan%20Sarah%20%26%20Ahmad&dates=20240615T010000Z/20240615T080000Z"
+                            class="rsvp-btn">
+                            <i class="fas fa-calendar-plus"></i>
+                            Simpan Tanggal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p class="footer-text">
+                    Wassalamu'alaikum Warahmatullahi Wabarakatuh<br>
+                    Kami yang berbahagia,<br>
+                    <strong>Keluarga Besar Sarah & Ahmad</strong>
                 </p>
-
-                <div class="gift-cards">
-                    <div class="gift-card">
-                        <h4><i class="fas fa-university"></i> Transfer Bank</h4>
-                        <div class="bank-info">
-                            <div class="bank-name">Bank BCA</div>
-                            <div class="account-number">1234567890</div>
-                            <div class="account-name">a.n. Sarah Amelia</div>
-                            <button class="copy-btn" onclick="copyToClipboard('1234567890')">
-                                <i class="fas fa-copy"></i> Salin No. Rekening
-                            </button>
-                        </div>
-
-                        <div class="bank-info">
-                            <div class="bank-name">Bank Mandiri</div>
-                            <div class="account-number">0987654321</div>
-                            <div class="account-name">a.n. Ahmad Fauzi</div>
-                            <button class="copy-btn" onclick="copyToClipboard('0987654321')">
-                                <i class="fas fa-copy"></i> Salin No. Rekening
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="gift-card">
-                        <h4><i class="fas fa-mobile-alt"></i> E-Wallet</h4>
-                        <div class="bank-info">
-                            <div class="bank-name">DANA</div>
-                            <div class="account-number">081234567890</div>
-                            <div class="account-name">a.n. Sarah Amelia</div>
-                            <button class="copy-btn" onclick="copyToClipboard('081234567890')">
-                                <i class="fas fa-copy"></i> Salin Nomor
-                            </button>
-                        </div>
-
-                        <div class="bank-info">
-                            <div class="bank-name">GoPay</div>
-                            <div class="account-number">080987654321</div>
-                            <div class="account-name">a.n. Ahmad Fauzi</div>
-                            <button class="copy-btn" onclick="copyToClipboard('080987654321')">
-                                <i class="fas fa-copy"></i> Salin Nomor
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
+        </footer>
+
+        <!-- Music Player -->
+        <div class="music-player" id="musicPlayer" onclick="toggleMusic()">
+            <i class="fas fa-music music-icon" id="musicIcon"></i>
         </div>
-    </section>
-
-    <!-- RSVP Section -->
-    <section class="rsvp-section">
-        <div class="container">
-            <h2 class="section-title">Konfirmasi Kehadiran</h2>
-
-            <div class="rsvp-content">
-                <p class="rsvp-text">
-                    Kehadiran dan doa restu dari Bapak/Ibu/Saudara/i merupakan kebahagiaan tersendiri bagi kami.
-                    Mohon konfirmasi kehadiran Anda melalui tombol di bawah ini.
-                </p>
-
-                <div class="rsvp-buttons">
-                    <a href="https://wa.me/628123456789?text=Assalamu'alaikum,%20saya%20akan%20hadir%20di%20acara%20pernikahan%20Sarah%20dan%20Ahmad"
-                        class="rsvp-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        Konfirmasi Hadir
-                    </a>
-                    <a href="https://goo.gl/maps/example" class="rsvp-btn">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Lihat Lokasi
-                    </a>
-                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan%20Sarah%20%26%20Ahmad&dates=20240615T010000Z/20240615T080000Z"
-                        class="rsvp-btn">
-                        <i class="fas fa-calendar-plus"></i>
-                        Simpan Tanggal
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p class="footer-text">
-                Wassalamu'alaikum Warahmatullahi Wabarakatuh<br>
-                Kami yang berbahagia,<br>
-                <strong>Keluarga Besar Sarah & Ahmad</strong>
-            </p>
-        </div>
-    </footer>
-
-
-    <!-- Audio Player -->
-    <audio id="backgroundMusic" autoplay loop muted>
-        <source src="music/Brian McKnight - Marry your daughter lyrics.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="music-controls">
-        <i id="musicIcon" class="fas fa-music" onclick="toggleMusic()"></i>
     </div>
 
+    <!-- Audio Player -->
+    <audio id="backgroundMusic" loop>
+        <source src="music/musio1.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
         // Get guest name from URL
         const params = new URLSearchParams(window.location.search);
         const nama = params.get("nama") || "Tamu Istimewa";
         document.getElementById("namaTamu").textContent = nama;
+        document.getElementById("splashNamaTamu").textContent = nama;
 
-        // Loading screen
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-                document.getElementById('loadingScreen').classList.add('fade-out');
-            }, 2500);
-        });
+        // Audio elements
+        const audio = document.getElementById('backgroundMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        let isPlaying = false;
+
+        // Open invitation function
+        function openInvitation() {
+            // Hide splash screen
+            document.getElementById('splashScreen').style.opacity = '0';
+            document.getElementById('splashScreen').style.transform = 'scale(0.9)';
+
+            setTimeout(() => {
+                document.getElementById('splashScreen').style.display = 'none';
+                document.getElementById('mainContent').classList.add('show');
+
+                // Start loading screen
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').classList.add('fade-out');
+                    createPetals();
+
+                    // Try to play music
+                    tryPlayMusic();
+                }, 2500);
+            }, 800);
+        }
+
+        // Music functions
+        function tryPlayMusic() {
+            audio.muted = false;
+            audio.play().then(() => {
+                isPlaying = true;
+                musicIcon.classList.add('playing');
+            }).catch(() => {
+                console.log("Autoplay prevented, waiting for user interaction");
+            });
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                musicIcon.classList.remove('playing');
+            } else {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.classList.add('playing');
+                }).catch(() => {
+                    console.log("Could not play audio");
+                });
+            }
+        }
 
         // Countdown Timer
         function updateCountdown() {
@@ -1668,7 +1958,6 @@
         // Copy to clipboard function
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(function () {
-                // Create temporary notification
                 const notification = document.createElement('div');
                 notification.innerHTML = '<i class="fas fa-check"></i> Berhasil disalin!';
                 notification.style.cssText = `
@@ -1682,8 +1971,8 @@
                     z-index: 10000;
                     font-weight: 500;
                     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                    animation: slideInRight 0.3s ease;
                 `;
+                notification.classList.add('slideInRight');
 
                 document.body.appendChild(notification);
 
@@ -1700,7 +1989,7 @@
         // Create floating petals
         function createPetals() {
             const container = document.getElementById('petalsContainer');
-            const petalCount = 20;
+            const petalCount = 15;
             const colors = ['#f4c2c2', '#e8b4b8', '#dca7aa', '#f0d0d0'];
 
             for (let i = 0; i < petalCount; i++) {
@@ -1716,13 +2005,11 @@
 
         // Gallery functionality
         function showGallery(category) {
-            // Update active tab
             document.querySelectorAll('.gallery-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             event.target.classList.add('active');
 
-            // Show/hide gallery items
             document.querySelectorAll('.gallery-item').forEach(item => {
                 if (item.dataset.category === category) {
                     item.style.display = 'block';
@@ -1731,27 +2018,6 @@
                     item.style.display = 'none';
                 }
             });
-        }
-
-        // Music Player
-        let isPlaying = false;
-        const audio = document.getElementById('backgroundMusic');
-        const musicIcon = document.getElementById('musicIcon');
-
-        function toggleMusic() {
-            if (isPlaying) {
-                audio.pause();
-                musicIcon.classList.remove('fa-pause', 'playing');
-                musicIcon.classList.add('fa-music');
-                isPlaying = false;
-            } else {
-                audio.play().catch(e => {
-                    console.log('Audio play failed:', e);
-                });
-                musicIcon.classList.remove('fa-music');
-                musicIcon.classList.add('fa-pause', 'playing');
-                isPlaying = true;
-            }
         }
 
         // Smooth scrolling for internal links
@@ -1768,79 +2034,58 @@
             });
         });
 
-        // Parallax effect
-        window.addEventListener('scroll', function () {
+        // Enhanced scroll animations with throttling
+        let ticking = false;
+
+        function updateScrollAnimations() {
             const scrolled = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+
+            // Parallax effect for hero and welcome sections
             const heroSection = document.querySelector('.hero-section');
             const welcomeSection = document.querySelector('.welcome-section');
-            const speed = 0.5;
 
             if (heroSection) {
-                heroSection.style.transform = `translateY(${scrolled * speed}px)`;
+                heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
             }
 
-            if (welcomeSection) {
-                welcomeSection.style.transform = `translateY(${scrolled * speed * 0.3}px)`;
+            if (welcomeSection && window.innerWidth > 768) {
+                welcomeSection.style.transform = `translateY(${scrolled * 0.3}px)`;
             }
 
             // Animate elements on scroll
-            const elements = document.querySelectorAll('.story-item, .gallery-item, .detail-card, .image-card');
+            const elements = document.querySelectorAll('.story-item, .gallery-item, .detail-card, .image-card, .welcome-text, .welcome-quote');
             elements.forEach(element => {
                 const elementTop = element.offsetTop;
                 const elementHeight = element.offsetHeight;
-                const windowHeight = window.innerHeight;
 
-                if (scrolled > elementTop - windowHeight + elementHeight / 2) {
+                if (scrolled > elementTop - windowHeight + elementHeight / 2 && !element.classList.contains('animated')) {
                     element.style.opacity = '1';
                     element.style.transform = 'translateY(0)';
+                    element.classList.add('animated');
                 }
             });
-        });
+
+            ticking = false;
+        }
+
+        function requestScrollUpdate() {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollAnimations);
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', requestScrollUpdate);
 
         // Initialize animations for scroll elements
-        document.querySelectorAll('.story-item, .gallery-item, .detail-card, .image-card').forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = 'all 0.6s ease';
-        });
-
-        // Enhanced gallery hover effects
-        document.querySelectorAll('.gallery-item').forEach((item, index) => {
-            item.addEventListener('mouseenter', function () {
-                this.style.zIndex = '10';
-                const rotation = (index % 2 === 0) ? '2deg' : '-2deg';
-                this.style.transform = `translateY(-10px) scale(1.02) rotate(${rotation})`;
-            });
-
-            item.addEventListener('mouseleave', function () {
-                this.style.zIndex = '1';
-                this.style.transform = 'translateY(0) scale(1) rotate(0deg)';
-            });
-        });
-
-        // Add intersection observer for better performance
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function (entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements for animation
-        document.querySelectorAll('.welcome-text, .couple-card, .story-item, .detail-card, .image-card').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', function () {
-            createPetals();
+            const animatedElements = document.querySelectorAll('.story-item, .gallery-item, .detail-card, .image-card, .welcome-text, .welcome-quote');
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'all 0.6s ease';
+            });
 
             // Add stagger animation to couple cards
             const coupleCards = document.querySelectorAll('.couple-card');
@@ -1848,7 +2093,7 @@
                 card.style.animationDelay = (index * 0.3) + 's';
             });
 
-            // Add hover effect to RSVP buttons
+            // Enhanced hover effects
             document.querySelectorAll('.rsvp-btn').forEach(btn => {
                 btn.addEventListener('mouseenter', function () {
                     this.style.transform = 'translateY(-5px) scale(1.05)';
@@ -1859,7 +2104,6 @@
                 });
             });
 
-            // Add hover effect to copy buttons
             document.querySelectorAll('.copy-btn').forEach(btn => {
                 btn.addEventListener('mouseenter', function () {
                     this.style.transform = 'translateY(-2px) scale(1.05)';
@@ -1869,9 +2113,23 @@
                     this.style.transform = 'translateY(0) scale(1)';
                 });
             });
+
+            // Gallery item hover effects with rotation
+            document.querySelectorAll('.gallery-item').forEach((item, index) => {
+                item.addEventListener('mouseenter', function () {
+                    this.style.zIndex = '10';
+                    const rotation = (index % 2 === 0) ? '2deg' : '-2deg';
+                    this.style.transform = `translateY(-10px) scale(1.02) rotate(${rotation})`;
+                });
+
+                item.addEventListener('mouseleave', function () {
+                    this.style.zIndex = '1';
+                    this.style.transform = 'translateY(0) scale(1) rotate(0deg)';
+                });
+            });
         });
 
-        // Auto-restart petal animation
+        // Auto-restart petal animation periodically
         setInterval(function () {
             const petals = document.querySelectorAll('.petal');
             petals.forEach(petal => {
@@ -1879,39 +2137,57 @@
             });
         }, 20000);
 
-        // Add container class for responsive layout
-        const style = document.createElement('style');
-        style.textContent = `
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 2rem;
-            }
+        // Performance optimization: disable parallax on mobile
+        if (window.innerWidth <= 768) {
+            document.querySelector('.hero-section').style.backgroundAttachment = 'scroll';
+            document.querySelector('.welcome-section').style.backgroundAttachment = 'scroll';
+        }
 
-            @keyframes slideInRight {
-                from {
-                    opacity: 0;
-                    transform: translateX(100%);
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function () {
+                // Re-check mobile optimizations
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.hero-section').style.backgroundAttachment = 'scroll';
+                    document.querySelector('.welcome-section').style.backgroundAttachment = 'scroll';
+                } else {
+                    document.querySelector('.hero-section').style.backgroundAttachment = 'fixed';
+                    document.querySelector('.welcome-section').style.backgroundAttachment = 'fixed';
                 }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-
-
-
-        // Aktifkan sound setelah halaman load
-        window.addEventListener('load', function () {
-            const music = document.getElementById('backgroundMusic');
-            music.muted = false;
-            music.play().catch(() => {
-                console.log("Autoplay dicegah browser, harus ada interaksi user");
-            });
+            }, 250);
         });
+
+        // Intersection Observer for better performance
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('observed')) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('observed');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements when main content is shown
+        function startObserving() {
+            document.querySelectorAll('.welcome-text, .couple-card, .story-item, .detail-card, .image-card').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Call startObserving when invitation is opened
+        const originalOpenInvitation = openInvitation;
+        openInvitation = function () {
+            originalOpenInvitation();
+            setTimeout(startObserving, 3000);
+        };
     </script>
 </body>
 

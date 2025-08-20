@@ -291,17 +291,29 @@
         }
 
         @media (max-width: 768px) {
-            .main-container {
-                padding: 10px;
+
+            .welcome-text,
+            .welcome-quote,
+            .image-caption {
+                font-size: 0.9rem;
+
+                line-height: 1.8;
+
+                word-wrap: break-word;
+                text-align: center;
+
             }
 
-            .header-section,
-            .form-section {
-                padding: 30px 20px;
+            .section-title {
+                font-size: 1.8rem;
+
             }
 
-            .header-title {
-                font-size: 1.5rem;
+            .image-card img {
+                height: auto;
+
+                max-height: 200px;
+
             }
         }
     </style>
@@ -362,7 +374,7 @@
             const loadingEl = document.getElementById("loading");
             const hasilEl = document.getElementById("hasilLink");
 
-            // Show loading
+
             loadingEl.classList.add("show");
             hasilEl.classList.remove("show");
 
@@ -391,12 +403,11 @@
                     `;
                 });
 
-                // Hide loading and show results
                 loadingEl.classList.remove("show");
                 hasilEl.innerHTML = output;
                 hasilEl.classList.add("show");
 
-                // Smooth scroll to results
+
                 hasilEl.scrollIntoView({
                     behavior: 'smooth',
                     block: 'nearest'
@@ -405,7 +416,7 @@
             }, 1500);
         });
 
-        // Add some interactive effects
+
         document.getElementById("listNama").addEventListener("input", function (e) {
             const lines = e.target.value.split('\n').filter(line => line.trim() !== '');
             const button = document.querySelector('.btn-generate');
